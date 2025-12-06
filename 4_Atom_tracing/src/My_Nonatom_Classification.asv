@@ -1,0 +1,205 @@
+function [temp_model, temp_atomtype] = My_Nonatom_Classification(RecVol_padded,atom_pos, stats, tight_support,NonAtomPercentage, halfSize, plothalfSize,SPHyn, varargin)
+
+tight_support_padded = My_paddzero(tight_support,size(RecVol_padded));
+
+% flag for plotting during the procedure
+
+[xX,yY,zZ] = ndgrid(-halfSize:halfSize,-halfSize:halfSize,-halfSize:halfSize);
+SphereInd = find(xX.^2+yY.^2+zZ.^2 <=(halfSize+0.5)^2);
+
+[xXp,yYp,zZp] = ndgrid(-plothalfSize:plothalfSize,-plothalfSize:plothalfSize,-plothalfSize:plothalfSize);
+SphereInd_plot = find(xXp.^2+yYp.^2+zZp.^2 <=(plothalfSize+0.5)^2);
+if SPHyn
+  useInd = SphereInd;
+  useInd_plot =SphereInd_plot;
+else
+  useInd = 1:length(xX);
+  useInd_plot = 1:length(xXp);
+end
+    
+%% obtain global intensity histogram
+
+curr_model = atom_pos;
+
+% initialize array for integrated intensity
+intensity_integ = zeros(1,size(curr_model,2));
+
+% integrate intensity (for 3x3x3 and 5x5x5 voxels) for each traced peak
+for j=1:size(curr_model,2)
+    curr_pos = round(curr_model(:,j));
+    box_integ = RecVol_padded(curr_pos(1)-plothalfSize:curr_pos(1)+plothalfSize,curr_pos(2)-plothalfSize:curr_pos(2)+plothalfSize,curr_pos(3)-plothalfSize:curr_pos(3)+plothalfSize);
+    intensity_integ(j) = sum(box_integ(useInd_plot));
+    
+end 
+
+%% compute initial average atom and non atom
+
+
+[I_sorted,~] = sort(intensity_integ,'ascend');
+
+nonatom_lower = min(intensity_integ);
+nonatom_upper = I_sorted(round(length(I_sorted)*NonAtomPercentage));
+TH = I_sorted(round(length(I_sorted)/2));
+
+
+% find indices of potential Fe, Pt, non atom from the given threshold
+deflowerind = find(intensity_integ<TH & intensity_integ > nonatom_upper);
+defupperind = find(intensity_integ>TH );
+
+
+defNAind = find(intensity_integ<nonatom_upper & intensity_integ>nonatom_lower);
+
+% compute average atom from the given indices
+[avatomlower]= compute_average_atom_from_vol(RecVol_padded,atom_pos,deflowerind,halfSize);
+[avatomupper]= compute_average_atom_from_vol(RecVol_padded,atom_pos,defupperind,halfSize);
+[avatomNA]= compute_average_atom_from_vol(RecVol_padded,atom_pos,defNAind,halfSize);
+
+% assign atomtype, 1 = Fe, 2 = Pt, -1 = non atom
+atomtype = zeros(1,length(intensity_integ));
+atomtype(defupperind) = 1;
+atomtype(deflowerind) = 2;
+atomtype(defNAind) = -1;
+
+sum(atomtype==-1)/length(atomtype)
+%% atom classification iteration
+curr_iternum = 0;
+
+exitFlag = 0;
+
+% iterate until there's no change in atomic specise classification
+while ~exitFlag
+
+    old_atomtype = atomtype;
+    % obtain updated atom classification by comparing each peaks with average atom species
+    [atomtype] = get_atomtype_CCmethod_vol_useInd(RecVol_padded, atom_pos, avatomlower, avatomupper, avatomNA, halfSize, useInd);
+
+    % re-compute average atomic species from the updated atom classification
+    [avatomlower]= compute_average_atom_from_vol(RecVol_padded,atom_pos,find(atomtype==1),halfSize);
+    [avatomupper]= compute_average_atom_from_vol(RecVol_padded,atom_pos,find(atomtype==2),halfSize);
+    %[avatomNA]= compute_average_atom_from_vol(RecVol_padded,atom_pos,defNAind,2);
+    [avatomNA]= compute_average_atom_from_vol(RecVol_padded,atom_pos,find(atomtype==-1),halfSize);
+
+    curr_iternum = curr_iternum + 1
+
+    % if there is no change in the atomic specise classification, turn on
+    % the exitflag
+    if sum(old_atomtype ~= atomtype) == 0
+        exitFlag = 1;
+    end
+end
+
+%% insert atom based on R factor
+% compute average Fe atom again from the previous classification result
+[avatomlower3]= compute_average_atom_from_vol(RecVol_padded, atom_pos, find(atomtype==1), halfSize);
+
+% compare each peak with average Fe atom with non-atom and mark peaks closer to non-atom
+% to zero
+[atomtype1, Rs] =insert_atoms_based_on_rfactor_PD_YY_compareBG_useInd(RecVol_padded, atom_pos, stats, avatomlower3,halfSize,useInd);
+%[atomtype1, Rs] =insert_atoms_based_on_rfactor_PD_YY_bgsub(RecVol_padded, atom_pos, new_stats, avatomFe3,2);
+
+
+
+%% apply manual adjustment of "atomtype1" to make physically reasonable model
+atomtype = atomtype1;
+
+countT = 0;
+for i=1:length(atomtype) %add atom if within support
+    if atomtype(i)==0
+        Rpos = round(atom_pos(:,i));
+        if tight_support_padded(Rpos(1),Rpos(2),Rpos(3))>0
+            atomtype(i) = 1;
+            countT = countT + 1;
+        end
+    end
+end
+fprintf(1,'%d atoms filled in again',countT);
+
+countT=0;
+for i=1:length(atomtype) %remove atom if outside support
+    if atomtype(i)~=0
+        Rpos = round(atom_pos(:,i));
+        if tight_support_padded(Rpos(1),Rpos(2),Rpos(3))==0
+            atomtype(i) = 0;
+            countT = countT + 1;
+        end
+    end
+end
+fprintf(1,'%d atoms removed again',countT);
+
+%% remove non-atoms, re-run the classification of upper atom and lower atom
+
+% take only Fe and Pt atoms, not non-atoms
+curr_model = atom_pos(:,atomtype>0);
+Cmodel = curr_model;
+F_atomtype = zeros(1,size(curr_model,2));
+
+% initialize variables
+
+intensity_integ = zeros(1,size(curr_model,2));
+
+% re-calculate integrated intensities
+for j=1:size(curr_model,2)
+    curr_pos = round(curr_model(:,j));
+    box_integ = RecVol_padded(curr_pos(1)-plothalfSize:curr_pos(1)+plothalfSize,curr_pos(2)-plothalfSize:curr_pos(2)+plothalfSize,curr_pos(3)-plothalfSize:curr_pos(3)+plothalfSize);
+    intensity_integ(j) = sum(box_integ(useInd_plot));
+end
+
+
+[I_sorted,~] = sort(intensity_integ,'ascend');
+
+TH1 = I_sorted(round(length(I_sorted)/2));
+
+% find indices of potential Fe, Pt from the given threshold
+defFeind = find(intensity_integ<TH1);
+defPtind = find(intensity_integ>TH1);
+
+%% compute average Fe atom and remove non-atoms
+% compute average atom
+[avatomFe]= compute_average_atom_from_vol(RecVol_padded,curr_model,defFeind,halfSize);
+[avatomPt]= compute_average_atom_from_vol(RecVol_padded,curr_model,defPtind,halfSize);
+
+atomtype = zeros(1,length(intensity_integ));
+atomtype(defFeind) = 1;
+atomtype(defPtind) = 2;
+
+
+%% atom classification iteration of Fe and Pt
+curr_iternum = 0;
+exitFlag = 0;
+
+% PLOT_YN = 1;
+while ~exitFlag
+    
+    old_atomtype = atomtype;
+
+    % obtain updated atom classification by comparing each peaks with average atom species
+    [atomtype] = get_atomtype_CCmethod_vol_twoatom_useInd(RecVol_padded, curr_model, avatomFe, avatomPt, halfSize, useInd);
+
+    % re-compute average atomic species from the updated atom classification
+    [avatomFe]= compute_average_atom_from_vol(RecVol_padded,curr_model,find(atomtype==1),halfSize);
+    [avatomPt]= compute_average_atom_from_vol(RecVol_padded,curr_model,find(atomtype==2),halfSize);
+
+    curr_iternum = curr_iternum + 1
+    
+    % if there is no change in the atomic specise classification, turn on
+    % the exitflag
+    if sum(old_atomtype ~= atomtype) == 0
+        exitFlag = 1;
+    end
+end
+
+%% 
+
+% get new model of Fe and Pt
+new_model = curr_model;
+new_atomtype = atomtype;
+
+
+%%
+
+temp_model =new_model;
+temp_atomtype = new_atomtype;
+
+
+
+
