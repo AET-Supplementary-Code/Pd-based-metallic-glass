@@ -43,5 +43,5 @@ RESIRE = readFiles(RESIRE);
 RESIRE = CheckPrepareData(RESIRE);
 RESIRE = reconstruct_control(RESIRE);
 Reconstruction = RESIRE.reconstruction;
-save('./Output/as_dep_GST_volume.mat','Reconstruction')
+save('./Output/PdNiP_volume.mat','Reconstruction')
 %SaveResults(RESIRE);

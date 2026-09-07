@@ -1,14 +1,8 @@
 %% Atom Tracing
 % load reconstructed 3D volume
 %addpath('./src')
-inputDir = '';
-Recon_filename = [inputDir sprintf('../3_Final_reconstruction_volume/PdSi_Volume/PdSi_Volume_part%d.mat', 1)];
-RecVol = importdata(Recon_filename);
-for nrecon = 2:4
-    Recon_filename = [inputDir sprintf('../3_Final_reconstruction_volume/PdSi_Volume/PdSi_Volume_part%d.mat', nrecon)];
-    RecVol_part = importdata(Recon_filename);
-    RecVol = cat(3,RecVol,RecVol_part);
-end
+Recon_filename  = '../3_Final_reconstruction_volume/PdNiP_Volume/PdNiP_Volume.mat';
+RecVol = importdata(Recon_filename,'Reconstruction');
 
 % set Threshold
 Th = 1;
@@ -30,7 +24,7 @@ Dmin = 2 / Res; % this corresponds to 2 Angstrom for FePt reconstruction
 
 DataMatrix = Sdn_pad;
 
-[atom_pocs, close_pos,  stats, statsI ] = find_possible_atoms(DataMatrix, Dmin, MaxNumberPeaks, BoxSize0, BoxSize1,BoxSize2,Th);
+[atom_pos, close_pos,  stats, statsI ] = find_possible_atoms(DataMatrix, Dmin, MaxNumberPeaks, BoxSize0, BoxSize1,BoxSize2,Th);
 
 tight_support = My_obtain_tight_support_ver1(RecVol);
 
