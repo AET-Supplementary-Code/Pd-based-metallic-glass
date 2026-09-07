@@ -5,10 +5,10 @@
 Jiong Zhou<sup>1,5</sup>, Huang Huang<sup>1,5</sup>, Jinhua Yu<sup>2,5</sup>, Zhenzhen Yan<sup>1</sup>,  Miaoran Zhang<sup>2</sup>, Huipu Liu<sup>2</sup>, Yakun Yuan<sup>3</sup>, Ling Zhang<sup>4</sup>, Jun Ding<sup>2*</sup>, Fan Zhu<sup>1*</sup>    
 
 <sup>1</sup>College of Smart Materials and Future Energy, Fudan University, Shanghai 200438, China    
-<sup>2</sup>Center for Alloy Innovation and Design, State Key Laboratory for Mechanical Behavior of Materials, Xi’an Jiaotong University, Xi’an 710049, China 
-<sup>3</sup>Future Material Innovation Center, School of Materials Science and Engineering, Zhangjiang Institute for Advanced Study and School of Physics and Astronomy, Shanghai Jiao Tong University, Shanghai 200030, China 
-<sup>4</sup>School of Optical-Electrical and Computer Engineering, University of Shanghai for Science and Technology, Shanghai 200093, China
-<sup>5</sup>These authors contribute equally: Jiong Zhou, Huang Huang, Jinhua Yu 
+<sup>2</sup>Center for Alloy Innovation and Design, State Key Laboratory for Mechanical Behavior of Materials, Xi’an Jiaotong University, Xi’an 710049, China    
+<sup>3</sup>Future Material Innovation Center, School of Materials Science and Engineering, Zhangjiang Institute for Advanced Study and School of Physics and Astronomy, Shanghai Jiao Tong University, Shanghai 200030, China    
+<sup>4</sup>School of Optical-Electrical and Computer Engineering, University of Shanghai for Science and Technology, Shanghai 200093, China    
+<sup>5</sup>These authors contribute equally: Jiong Zhou, Huang Huang, Jinhua Yu    
 **Corresponding authors: dingsn@xjtu.edu.cn, fzhu@fudan.edu.cn *     
 
 
