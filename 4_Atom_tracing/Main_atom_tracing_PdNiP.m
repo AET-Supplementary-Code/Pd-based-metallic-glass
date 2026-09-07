@@ -1,7 +1,7 @@
 %% Atom Tracing
 % load reconstructed 3D volume
 %addpath('./src')
-Recon_filename  = '../3_Final_reconstruction_volume/PdNiP_Volume/PdNiP_Volume.mat';
+Recon_filename  = '../3_Final_reconstruction_volume/PdNiP_Volume.mat';
 RecVol = importdata(Recon_filename,'Reconstruction');
 
 % set Threshold
