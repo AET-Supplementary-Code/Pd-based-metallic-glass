@@ -55,6 +55,9 @@ This folder contains experimental images after denoising and alignment as well a
 Folder: [2_RESIRE_package](./2_RESIRE_package)
 
 Run the code `Main_RESIRE_PdNiP.m` to achieve the 3D reconstruction of the Pd-Ni-P nanoparticle.
+- **Expected Run Time**: 
+  - On a recommended high-performance workstation (512G DRAM, 16-core CPU, GPU): ~24–48 hours.
+  - On a "normal" standard desktop computer (16G DRAM, 4-core CPU): Not recommended due to memory limits, and may take significantly longer or fail out-of-memory.
 
 ### 3. Reconstructed 3D Volume
 
@@ -67,6 +70,7 @@ This folder includes the 3D reconstructed volumes of the Pd-Ni-P nanoparticle.
 Folder: [4_Atom_tracing](./4_Atom_tracing)
 
 Run the codes `Main_atom_tracing_PdNiP.m` to trace the candidate atomic positions from the reconstructed 3D volume.
+- **Expected Run Time**: ~24 hours on a standard/recommended system.
 
 ### 5. Experimental Atomic Model
 
@@ -79,3 +83,4 @@ This folder includes the final 3D atomic model of the Pd-Ni-P nanoparticle.
 Folder: [6_Data_analysis](./6_Data_analysis)
 
 Run the codes `BOO_RDF_PdNiP.m` to calculate the radial distribution functions for amorphous Pd-Ni-P.
+- **Expected Run Time**: ~16 hours on a standard/recommended system.
