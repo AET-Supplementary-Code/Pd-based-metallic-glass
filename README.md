@@ -16,17 +16,17 @@ Jiong Zhou<sup>1,5</sup>, Huang Huang<sup>1,5</sup>, Jinhua Yu<sup>2,5</sup>, Zh
 
 - [Overview](#overview)
 - [System Requirements](#system-requirements)
-- [Repositary Contents](#repositary-contents)
+- [Repository Contents](#repository-contents)
 
 # Overview
 
-Glass-forming ability is a critical property for amorphous solids which significantly influences their potential for structural and functional applications. Although medium-range orders have been widely recognized as essential microstructural features in amorphous solids, directly linking them with glass-forming ability remains challenging. Here, we report that fractal dimensionality can serve as a definite structural indicator to quantitatively correlate medium-range order with bulk glass-forming ability. Using atomic electron tomography, we determine the three-dimensional atomic structures of Pd-Ni-P and Pd-Si metallic glasses, revealing a strong correlation between glass-forming ability and fractal dimensionality. This relationship is further validated by examining the medium-range-ordered spatial heterogeneity in eight typical bulk metallic glasses, including Zr<sub>41.25</sub>Ti<sub>13.75</sub>Cu<sub>12.5</sub>Ni<sub>10</sub>Be<sub>22.5</sub>, Zr<sub>55</sub>Cu<sub>30</sub>Ni<sub>5</sub>Al<sub>10</sub>, and Pd<sub>40</sub>Ni<sub>40</sub>P<sub>20</sub> (at. %). Our study provides compelling evidence that the fractal nature of medium-range orders plays a crucial role in determining the bulk properties of amorphous solids, distinguishing them from the non-fractal crystalline solids.
+Glass-forming ability (GFA) governs whether a metallic liquid can avoid crystallization and vitrify, yet its atomic-scale structural origin remains elusive. Here we identify the fractal dimensionality of medium-range order (MRO) as a quantitative structural descriptor of GFA in metallic glasses. Using atomic electron tomography, we resolve the three-dimensional atomic structures of the prototypical Pd-Ni-P and Pd-Si glass formers and directly visualize fractal MRO networks, with the higher-GFA alloy exhibiting greater MRO dimensionality and spatial connectivity. We then extend this analysis using Cs-corrected HAADF-STEM across eight as-cast bulk metallic glasses and six melt-spun ribbons spanning different alloy chemistries and cooling histories. These datasets collapse onto a unified scaling relationship between reduced GFA and MRO fractal dimensionality. The results show that glass formation depends not simply on the presence of locally preferred structures, but on how they connect and propagate over medium-range length scales. Higher-dimensional and more spatially extended MRO imposes stronger cooperative constraints on the structural rearrangements required for crystallization, thereby promoting vitrification. Our findings establish a direct quantitative link between atomic-scale amorphous organization and macroscopic glass-forming ability.
 
 # System Requirements
 
 ## Hardware Requirements
 
-We recommend a computer with 16G DRAM, standard i7 4-core CPU, and a GPU to run most data analysis source codes. But for the 3D reconstruction of the experimental data with RESIRE, atomic tracing and refinement, we recommend a computer with large memory (512G DRAM, 16-core CPU and 1 GPU).
+We recommend a computer with 16G DRAM, standard i7 4-core CPU, and a GPU to run most data analysis source codes. But for the 3D reconstruction of the experimental data with RESIRE and atomic tracing, we recommend a computer with large memory (512G DRAM, 16-core CPU and 1 GPU).
 
 ## Software Requirements
 
@@ -42,7 +42,7 @@ Mac OSX: We have not tested it on a Mac yet, but it should in principle work.
 
 This package has been tested with `Matlab` R2021b. All the codes have to run in their own folders. We recommend the use of `Matlab` version R2021a or higher to test the data and source codes.
 
-# Repositary Contents
+# Repository Contents
 
 ### 1. Experiment Data
 
@@ -54,7 +54,7 @@ This folder contains experimental images after denoising and alignment as well a
 
 Folder: [2_RESIRE_package](./2_RESIRE_package)
 
-Run the code `Main_RESIRE_PdNiP.m` to achieve the 3D reconstruction of the Pd-Ni-P nanoparticle.
+Run the code `Main_RESIRE_Demo.m` to achieve the 3D reconstruction of a small demo object. Run the code `Main_RESIRE_PdNiP.m` to achieve the 3D reconstruction of the Pd-Ni-P nanoparticle.
 - **Expected Run Time**: 
   - On a recommended high-performance workstation (512G DRAM, 16-core CPU, GPU): ~24–48 hours.
   - On a "normal" standard desktop computer (16G DRAM, 4-core CPU): Not recommended due to memory limits, and may take significantly longer or fail out-of-memory.

@@ -1,6 +1,6 @@
 %% Atom Tracing
 % load reconstructed 3D volume
-%addpath('./src')
+addpath('./src')
 Recon_filename  = '../3_Final_reconstruction_volume/PdNiP_Volume.mat';
 RecVol = importdata(Recon_filename,'Reconstruction');
 

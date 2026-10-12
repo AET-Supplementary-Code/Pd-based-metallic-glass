@@ -8,6 +8,8 @@ addpath('input/')
 % read in files: finalized atomic coordinates in Angstrom and types
 model = importdata('./Input/Final_atomic_model_PdNiP.mat');
 atoms = importdata('./Input/Final_atomtype_PdNiP.mat');
+ind = atoms == 4; % delete surface atom
+model(:,ind) = [];atoms(:,ind) = [];
 
 % set the parameters: step size and the range for rdf and pdf
 step = 0.05;  cutoff = 10;
