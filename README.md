@@ -48,39 +48,39 @@ This package has been tested with `Matlab` R2021b. All the codes have to run in 
 
 Folder: [1_Measured_data](./1_Measured_data)
 
-This folder contains experimental images after denoising and alignment as well as their corresponding tilt angles for the amorphous Pd-Ni-P nanoparticle.
+This folder contains experimental images after denoising and alignment as well as their corresponding tilt angles for the amorphous Pd-Si and Pd-Ni-P nanoparticles.
 
 ### 2. The REal Space Iterative REconstruction (RESIRE) Package
 
 Folder: [2_RESIRE_package](./2_RESIRE_package)
 
-Run the code `Main_RESIRE_Demo.m` to achieve the 3D reconstruction of a small demo object. Run the code `Main_RESIRE_PdNiP.m` to achieve the 3D reconstruction of the Pd-Ni-P nanoparticle.
+Run the code `Main_RESIRE_Demo.m` to achieve the 3D reconstruction of a small demo object. Run the code `Main_RESIRE_PdSi.m` to achieve the 3D reconstruction of the Pd-Si nanoparticle. Run the code `Main_RESIRE_PdNiP.m` to achieve the 3D reconstruction of the Pd-Ni-P nanoparticle.
 - **Expected Run Time**: 
-  - On a recommended high-performance workstation (512G DRAM, 16-core CPU, GPU): ~24–48 hours.
+  - On a recommended high-performance workstation (512G DRAM, 16-core CPU, GPU): ~72 hours.
   - On a "normal" standard desktop computer (16G DRAM, 4-core CPU): Not recommended due to memory limits, and may take significantly longer or fail out-of-memory.
 
 ### 3. Reconstructed 3D Volume
 
 Folder: [3_Final_reconstruction_volume](./3_Final_reconstruction_volume)
 
-This folder includes the 3D reconstructed volumes of the Pd-Ni-P nanoparticle.
+This folder includes the 3D reconstructed volumes of Pd-Si and Pd-Ni-P nanoparticles.
 
 ### 4. Atom Tracing
 
 Folder: [4_Atom_tracing](./4_Atom_tracing)
 
-Run the codes `Main_atom_tracing_PdNiP.m` to trace the candidate atomic positions from the reconstructed 3D volume.
+Run the code `Main_atom_tracing_PdSi.m` to trace the candidate atomic positions from the reconstructed 3D volume of Pd-Si. Run the codes `Main_atom_tracing_PdNiP.m` to trace the candidate atomic positions from the reconstructed 3D volume.
 - **Expected Run Time**: ~24 hours on a standard/recommended system.
 
 ### 5. Experimental Atomic Model
 
 Folder: [5_Final_coordinates](./5_Final_coordinates)
 
-This folder includes the final 3D atomic model of the Pd-Ni-P nanoparticle.
+This folder includes the final 3D atomic model of Pd-Si and Pd-Ni-P nanoparticles.
 
 ### 6. Post Data Analysis
 
 Folder: [6_Data_analysis](./6_Data_analysis)
 
-Run the codes `BOO_RDF_PdNiP.m` to calculate the radial distribution functions for amorphous Pd-Ni-P.
+Run the code `BOO_RDF_PdSi.m` to calculate the radial distribution functions for amorphous Pd-Si. Run the codes `BOO_RDF_PdNiP.m` to calculate the radial distribution functions for amorphous Pd-Ni-P.
 - **Expected Run Time**: ~16 hours on a standard/recommended system.

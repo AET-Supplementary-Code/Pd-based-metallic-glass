@@ -14,7 +14,7 @@ addpath('./src/')
 % please run this on super computer due to the large array size and
 % oversampling ratio
 RESIRE = RESIRE_reconstructor();
-Path = '../1_Measured_data/';
+Path = '../1_Measured_data/PdNiP/';
 RESIRE.filename_Projections = [Path 'proj.mat'];
 RESIRE.filename_Angles = [Path 'angle1.mat'];
 RESIRE.filename_Support = ''; 
