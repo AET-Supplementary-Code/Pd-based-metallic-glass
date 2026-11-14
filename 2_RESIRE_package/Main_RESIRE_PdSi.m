@@ -15,6 +15,9 @@ addpath('./src/')
 % oversampling ratio
 RESIRE = RESIRE_reconstructor();
 Path = '../1_Measured_data/PdSi/';
+proj_part1 = importdata([Path 'proj_1.mat']);
+proj_part2 = importdata([Path 'proj_2.mat']);
+save([Path 'proj.mat'],cat(3,proj_part1,proj_part2));
 RESIRE.filename_Projections = [Path 'proj.mat'];
 RESIRE.filename_Angles = [Path 'angle1.mat'];
 RESIRE.filename_Support = ''; 
