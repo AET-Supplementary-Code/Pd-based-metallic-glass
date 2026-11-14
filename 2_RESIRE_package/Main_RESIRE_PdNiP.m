@@ -43,5 +43,8 @@ RESIRE = readFiles(RESIRE);
 RESIRE = CheckPrepareData(RESIRE);
 RESIRE = reconstruct_control(RESIRE);
 Reconstruction = RESIRE.reconstruction;
+if ~isfolder('Output')
+    mkdir('Output');
+end
 save('./Output/PdNiP_volume.mat','Reconstruction')
 %SaveResults(RESIRE);

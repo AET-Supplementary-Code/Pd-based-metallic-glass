@@ -20,7 +20,7 @@ MaxNumberPeaks=1000000; %maximum number of peaks to find
 
 % minimum distance constraint in the unit of pixel
 Res = 0.421347;
-Dmin = 2 / Res; % this corresponds to 2 Angstrom for FePt reconstruction
+Dmin = 2.0 / Res; % this corresponds to 2 Angstrom for FePt reconstruction
 
 DataMatrix = Sdn_pad;
 
@@ -38,7 +38,7 @@ bb = find(sum(atom_pos.^2,1)==0);
 atom_pos(:,bb) = [];
 
 [temp_model, ~] = My_Nonatom_Classification(DataMatrix,atom_pos,stats, tight_support, NonAtomPercentage,4,1,1);
-
+temp_model = temp_model(:,  1:floor(0.9*size(temp_model,2)));
 cenpixels = repmat(round((size(DataMatrix)+1)/2)',[1, size(temp_model,2)]);
  ROTmodel = temp_model - cenpixels;
 
@@ -50,5 +50,7 @@ ROTmodel = Up * [ROTmodel(1,:);ROTmodel(2,:);ROTmodel(3,:)];
 ROTmodel = [ROTmodel(1,:);ROTmodel(2,:);ROTmodel(3,:)] + cenpixels;
 
 ROTmodel = ROTmodel- cenpixels;
-
+if ~isfolder('Output')
+    mkdir('Output');
+end
 save('Output/PdNiP_Tracing.mat','temp_model','ROTmodel');

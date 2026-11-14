@@ -93,4 +93,7 @@ boo_Q6_full = obtain_Q_l_2ndNN_inds_PBC(model,Q_analysis_bondTh,6,[], 0);
 scaled_SROP = sqrt(boo_Q4_full.^2 + boo_Q6_full.^2)./sqrt(0.190941^2 + 0.574524^2);
 %%
 %save data
-save('./OutPut/BOO_RDF_PdSi.mat','radius_arr','rdf_arr','pdf_arr','volume_arr','scaled_SROP','boo_Q4_full','boo_Q6_full');
+if ~isfolder('Output')
+    mkdir('Output');
+end
+save('./Output/BOO_RDF_PdSi.mat','radius_arr','rdf_arr','pdf_arr','volume_arr','scaled_SROP','boo_Q4_full','boo_Q6_full');
