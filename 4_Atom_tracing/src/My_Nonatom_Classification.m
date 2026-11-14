@@ -128,5 +128,5 @@ fprintf(1,'%d atoms removed again',countT);
 
 %% remove non-atoms
 curr_model = atom_pos(:,atomtype>0);
-temp_model =curr_model;
+temp_model = curr_model;
 temp_atomtype = atomtype;
