@@ -17,13 +17,13 @@ RESIRE = RESIRE_reconstructor();
 Path = '../1_Measured_data/PdSi/';
 proj_part1 = importdata([Path 'proj_1.mat']);
 proj_part2 = importdata([Path 'proj_2.mat']);
-save([Path 'proj.mat'],cat(3,proj_part1,proj_part2));
+proj = cat(3,proj_part1,proj_part2);
+save([Path 'proj.mat'],'proj');
 RESIRE.filename_Projections = [Path 'proj.mat'];
 RESIRE.filename_Angles = [Path 'angle1.mat'];
 RESIRE.filename_Support = ''; 
 RESIRE.filename_InitialModel = '';
 RESIRE.filename_Results = '';
-
 RESIRE.numIterations = 200;
 RESIRE.extenedobject = false;
 RESIRE.obj_dimz = 1; % object thickness, 1 - same as projection dim1; 2 - same as projection dim2; Other - specified size
