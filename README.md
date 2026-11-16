@@ -2,7 +2,7 @@
 
 **Fractal medium-range orders govern bulk metallic glass formation**
 
-Jiong Zhou<sup>1,5</sup>, Huang Huang<sup>1,5</sup>, Jinhua Yu<sup>2,5</sup>, Zhenzhen Yan<sup>1</sup>,  Miaoran Zhang<sup>2</sup>, Huipu Liu<sup>2</sup>, Yakun Yuan<sup>3</sup>, Ling Zhang<sup>4</sup>, Jun Ding<sup>2*</sup>, Fan Zhu<sup>1*</sup>    
+Jiong Zhou<sup>1,5</sup>, Huang Huang<sup>1,5</sup>, Jinhua Yu<sup>2,5</sup>, Zhenzhen Yan<sup>1</sup>,  Miaoran Zhang<sup>2</sup>, Huipu Liu<sup>1</sup>, Yakun Yuan<sup>3</sup>, Ling Zhang<sup>4</sup>, Jun Ding<sup>2*</sup>, Fan Zhu<sup>1*</sup>    
 
 <sup>1</sup>College of Smart Materials and Future Energy, Fudan University, Shanghai 200438, China    
 <sup>2</sup>Center for Alloy Innovation and Design, State Key Laboratory for Mechanical Behavior of Materials, Xi’an Jiaotong University, Xi’an 710049, China    
